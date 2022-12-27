@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const create_cat_dto_1 = require("./dto/create-cat.dto");
 const cats_service_1 = require("./cats.service");
 const http_exception_filter_1 = require("../exception-filters/http-exception.filter");
+const pipes_1 = require("./pipes");
 let CatsController = class CatsController {
     constructor(catsService) {
         this.catsService = catsService;
@@ -30,6 +31,9 @@ let CatsController = class CatsController {
             throw new common_1.HttpException('There`s no cat', common_1.HttpStatus.NOT_FOUND);
         }
         return result;
+    }
+    async findByAge(age) {
+        return this.catsService.findByAge(age);
     }
     findAllWildcard() {
         return 'This route uses a wildcard';
@@ -46,7 +50,7 @@ let CatsController = class CatsController {
 };
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new pipes_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_cat_dto_1.CreateCatDto]),
     __metadata("design:returntype", Promise)
@@ -58,6 +62,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CatsController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)(':age'),
+    (0, common_1.UseFilters)(new http_exception_filter_1.HttpExceptionFilter()),
+    __param(0, (0, common_1.Param)('age', new pipes_1.ParseIntPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], CatsController.prototype, "findByAge", null);
 __decorate([
     (0, common_1.Get)('ab*cd'),
     __metadata("design:type", Function),

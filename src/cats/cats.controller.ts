@@ -3,6 +3,7 @@ import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { HttpExceptionFilter } from 'src/exception-filters/http-exception.filter';
+import {  ValidationPipe, ParseIntPipe } from './pipes';
 
 @Controller('cats')
 export class CatsController {
@@ -11,7 +12,7 @@ export class CatsController {
     ) {}
 
     @Post()
-    async create(@Body() createCatDto: CreateCatDto ){
+    async create(@Body(new ValidationPipe()) createCatDto: CreateCatDto ){
         this.catsService.create(createCatDto);
     }
 
@@ -26,6 +27,12 @@ export class CatsController {
         }
         //console.log("There`s result output")
         return result;
+    }
+
+    @Get(':age')
+    @UseFilters(new HttpExceptionFilter())
+    async findByAge(@Param('age', new ParseIntPipe()) age : number): Promise<Cat[]> {
+        return this.catsService.findByAge(age);
     }
 
     /*

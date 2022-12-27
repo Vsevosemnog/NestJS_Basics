@@ -6,6 +6,7 @@ export declare class CatsController {
     constructor(catsService: CatsService);
     create(createCatDto: CreateCatDto): Promise<void>;
     findAll(): Promise<Cat[]>;
+    findByAge(age: number): Promise<Cat[]>;
     findAllWildcard(): string;
     getDocs(version: any): {
         url: string;

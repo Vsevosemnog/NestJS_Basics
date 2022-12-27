@@ -12,4 +12,7 @@ export class CatsService {
     findAll(): Cat[] {
         return this.cats;
     }
+    findByAge(age: number): Cat[] {
+        return this.cats.filter(item => item.age === age);
+    }
 }

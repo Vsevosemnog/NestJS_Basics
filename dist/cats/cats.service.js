@@ -18,6 +18,9 @@ let CatsService = class CatsService {
     findAll() {
         return this.cats;
     }
+    findByAge(age) {
+        return this.cats.filter(item => item.age === age);
+    }
 };
 CatsService = __decorate([
     (0, common_1.Injectable)()
