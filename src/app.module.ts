@@ -19,5 +19,3 @@ export class AppModule implements NestModule {
     //consumer.apply(LoggerMiddleware).exclude({path: 'cats', method: RequestMethod.POST});
   }
 }
-
-//
