@@ -18,6 +18,9 @@ const create_cat_dto_1 = require("./dto/create-cat.dto");
 const cats_service_1 = require("./cats.service");
 const http_exception_filter_1 = require("../exception-filters/http-exception.filter");
 const pipes_1 = require("./pipes");
+const guards_1 = require("./guards");
+const decorators_1 = require("./decorators");
+const interceptors_1 = require("./interceptors");
 let CatsController = class CatsController {
     constructor(catsService) {
         this.catsService = catsService;
@@ -50,6 +53,7 @@ let CatsController = class CatsController {
 };
 __decorate([
     (0, common_1.Post)(),
+    (0, decorators_1.Roles)('admin'),
     __param(0, (0, common_1.Body)(new pipes_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_cat_dto_1.CreateCatDto]),
@@ -57,6 +61,7 @@ __decorate([
 ], CatsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, common_1.UseInterceptors)(interceptors_1.LogginInterceptor, interceptors_1.TransformInterceptor, interceptors_1.ExcludeNullInterceptor, interceptors_1.ErrorsInterceptor, interceptors_1.CacheInterceptor),
     (0, common_1.UseFilters)(new http_exception_filter_1.HttpExceptionFilter()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -93,6 +98,7 @@ __decorate([
 ], CatsController.prototype, "findOne", null);
 CatsController = __decorate([
     (0, common_1.Controller)('cats'),
+    (0, common_1.UseGuards)(guards_1.AuthGuard),
     __metadata("design:paramtypes", [cats_service_1.CatsService])
 ], CatsController);
 exports.CatsController = CatsController;

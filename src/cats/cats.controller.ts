@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, HttpCode, HttpException, HttpStatus, HttpVersionNotSupportedException, Param, Post, Query, Redirect, Req, SetMetadata, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Header, HttpCode, HttpException, HttpStatus, HttpVersionNotSupportedException, Param, Post, Query, Redirect, Req, SetMetadata, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
@@ -6,6 +6,7 @@ import { HttpExceptionFilter } from 'src/exception-filters/http-exception.filter
 import {  ValidationPipe, ParseIntPipe } from './pipes';
 import { AuthGuard } from './guards';
 import { Roles } from './decorators';
+import { LogginInterceptor, TransformInterceptor, ExcludeNullInterceptor, ErrorsInterceptor, CacheInterceptor } from './interceptors';
 
 @Controller('cats')
 @UseGuards(AuthGuard)
@@ -22,6 +23,7 @@ export class CatsController {
     }
 
     @Get()
+    @UseInterceptors(LogginInterceptor, TransformInterceptor, ExcludeNullInterceptor, ErrorsInterceptor, CacheInterceptor)
     @UseFilters(new HttpExceptionFilter())
     async findAll(): Promise<Cat[]> {
         const result = this.catsService.findAll();
