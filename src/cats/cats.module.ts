@@ -1,7 +1,7 @@
 import { Injectable, Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
-import { Connection } from './constants';
+//import { Connection } from './constants';
 
 const mockCatsService = {
     // implementation
@@ -74,20 +74,20 @@ const configFactory = {
             //useValue: Connection,
             //useValue: mockCatsService,
         },
-        {
+/*         {
             provide: 'CONNECTION',
             useValue: Connection,
-        },
-        // Async Provider in order to establish connection before accepting requests
+        }, */
+/*         // Async Provider in order to establish connection before accepting requests
         {
             provide: 'ASYNC_CONNECTION',
             useFactory: async () => {
               const connection = await "connection";//createConnection(options);
               return connection;
             },
-          }
+          } */
     ],
-    exports: ['CONNECTION'], // [connectionFactory]
+    //exports: ['CONNECTION'], // [connectionFactory]
 })
 export class CatsModule {}
 

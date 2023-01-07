@@ -6,9 +6,10 @@ import { AccountController } from './account/account.controller';
 import { CatsService } from './cats/cats.service';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { ConfigModule } from './config/config.module';
 
 @Module({
-  imports: [CatsModule],
+  imports: [CatsModule, ConfigModule.register({folder: './config'})],
   controllers: [AppController, AccountController],
   providers: [AppService],
 })
