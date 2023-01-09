@@ -7,11 +7,12 @@ import { CatsService } from './cats/cats.service';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ConfigModule } from './config/config.module';
+import { HelloServiceService } from './hello-service';
 
 @Module({
   imports: [CatsModule, ConfigModule.register({folder: './config'})],
   controllers: [AppController, AccountController],
-  providers: [AppService],
+  providers: [AppService, HelloServiceService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

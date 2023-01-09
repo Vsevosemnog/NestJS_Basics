@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { HelloServiceService } from './hello-service';
 
 @Injectable()
 export class AppService {
+  constructor(private helloService: HelloServiceService) {}
   getHello(): string {
-    return 'Hello World!';
+    this.helloService.sayHello('Henlo');
+    return "hello";
   }
 }

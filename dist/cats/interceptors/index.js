@@ -19,4 +19,5 @@ __exportStar(require("./transform.interceptor"), exports);
 __exportStar(require("./exclude-null.interceptor"), exports);
 __exportStar(require("./errors.interceptor"), exports);
 __exportStar(require("./cache.interceptor"), exports);
+__exportStar(require("./timeout.interceptor"), exports);
 //# sourceMappingURL=index.js.map

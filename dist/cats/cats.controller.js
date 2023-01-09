@@ -97,7 +97,10 @@ __decorate([
     __metadata("design:returntype", String)
 ], CatsController.prototype, "findOne", null);
 CatsController = __decorate([
-    (0, common_1.Controller)('cats'),
+    (0, common_1.Controller)({
+        path: 'cats',
+        scope: common_1.Scope.REQUEST,
+    }),
     (0, common_1.UseGuards)(guards_1.AuthGuard),
     __metadata("design:paramtypes", [cats_service_1.CatsService])
 ], CatsController);
